@@ -13,5 +13,6 @@ describe('SingUp COntroller', () => {
     }
     const httpResposnse = sut.handle(httpRequest)
     expect(httpResposnse.statusCode).toBe(400)
+    expect(httpResposnse).toEqual(new Error("MISSING PARA : NAME"))
   })
 })
