@@ -1,7 +1,8 @@
-import test, { describe } from "node:test";
+import { describe } from "node:test"
+import { SingUpController } from "./singup"
 
 describe('SingUp COntroller', () => {
-  test('Shold return 400 if not name is provided', () => {
+  it('Shold return 400 if not name is provided', () => {
     const sut = new SingUpController()
     const httpRequest = {
       body: {
