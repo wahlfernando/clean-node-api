@@ -19,7 +19,7 @@ describe('SingUp COntroller', () => {
 
 test('Should return 400 if no email is provided', () => {
   const sut = new SingUpController()
-  const httpRequest = {
+  const httpRequest = { 
     body: {
       name: 'any_name',
       password: 'any_password',
