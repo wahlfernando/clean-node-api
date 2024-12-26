@@ -2,6 +2,7 @@ import test, { describe } from "node:test";
 import { SingUpController } from "./singup";
 import { MissisgParamError } from "../erros/missing-parans-error";
 import { InvalidParamError } from "../erros/invalid-parans-error";
+import { ServerError } from "../erros/server-error";
 import { EmailValdiator } from "../protocols/email-validator";
 
 interface StubTypes {
@@ -112,4 +113,25 @@ test("Should EmailValdiator with correct email", () => {
   };
   sut.handle(httpRequest);
   expect(isValidSpy).toHaveBeenCalledWith("any_email@gmail.com");
+});
+
+test("Should return 500 EmailValidator with throws", () => {
+  class EmailValdiatorStub implements EmailValdiator {
+    isValid(email: string): boolean {
+      throw new Error();
+    }
+  }
+  const emailValdiatorStub = new EmailValdiatorStub();
+  const sut = new SingUpController(emailValdiatorStub);
+  const httpRequest = {
+    body: {
+      name: "any_name",
+      email: "any_email@gmail.com",
+      password: "any_password",
+      passwordConfirmatrion: "any_password",
+    },
+  };
+  const httpResponse = sut.handle(httpRequest);
+  expect(httpResponse.statusCode).toBe(500);
+  expect(httpResponse.body).toEqual(new ServerError());
 });
