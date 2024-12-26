@@ -1,9 +1,7 @@
 import test, { describe } from "node:test";
 import { SingUpController } from "./singup";
-import { MissisgParamError } from "../erros/missing-parans-error";
-import { InvalidParamError } from "../erros/invalid-parans-error";
-import { ServerError } from "../erros/server-error";
-import { EmailValdiator } from "../protocols/email-validator";
+import { MissisgParamError, InvalidParamError, ServerError } from "../erros";
+import { EmailValdiator } from "../protocols";
 
 interface StubTypes {
   sut: SingUpController;
